@@ -1,0 +1,37 @@
+{
+  "category": "Tools",
+  "type": "Plugin",
+  "name": "RipesConnect",
+  "id": "RipesConnect",
+  "description": "RISC-V Assembler- und Prozessor-Simulation für OneWare Studio",
+  "license": "MIT",
+  "iconUrl": "https://raw.githubusercontent.com/GrazyFrog1405/Ripes_in_OneWare/main/Icon.png",
+  "tabs": [
+    {
+      "title": "Readme",
+      "contentUrl": "https://raw.githubusercontent.com/GrazyFrog1405/Ripes_in_OneWare/main/Extension.md"
+    },
+    {
+      "title": "License",
+      "contentUrl": "https://raw.githubusercontent.com/GrazyFrog1405/Ripes_in_OneWare/main/License.md"
+    }
+  ],
+  "links": [
+    {
+      "name": "Github",
+      "url": "https://github.com/GrazyFrog1405/Ripes_in_OneWare"
+    }
+  ],
+  "sourceUrl": "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download",
+  "versions": [
+    {
+      "version": "0.1",
+      "targets": [
+        {
+          "target": "all",
+          "filename": "RipesConnect.0.1.zip"
+        }
+      ]
+    }
+  ]
+}
