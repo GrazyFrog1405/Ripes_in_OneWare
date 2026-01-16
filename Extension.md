@@ -1,4 +1,4 @@
-![Icon](https://github.com/GrazyFrog1405/Ripes_in_OneWare/blob/d70df24e12191033cd0b037ff2bdf5d49c68f236/Icon.png)
+![Icon](https://raw.githubusercontent.com/GrazyFrog1405/Ripes_in_OneWare/main/Icon.png)
 
 # Get Started with Ripes Connect
 
