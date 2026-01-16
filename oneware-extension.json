@@ -1,7 +1,7 @@
 {
   "category": "Tools",
   "type": "Plugin",
-  "name": "RipesConnect",
+  "name": "Ripes Connect",
   "id": "RipesConnect",
   "description": "RISC-V Assembler- und Prozessor-Simulation für OneWare Studio",
   "license": "MIT",
