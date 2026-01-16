@@ -1,4 +1,4 @@
-# OneWare.MyExtension
+# RipesConnect
 
 Template for creating Extensions for OneWare Studio
 
