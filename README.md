@@ -1,6 +1,4 @@
-# RipesConnect
-
-Template for creating Extensions for OneWare Studio
+RipesConnect
 
 ![image](https://github.com/GrazyFrog1405/Ripes_in_OneWare/blob/874de6d55b0bf1acfb1a9689e0dd9894134d9a15/Icon.png)
 
