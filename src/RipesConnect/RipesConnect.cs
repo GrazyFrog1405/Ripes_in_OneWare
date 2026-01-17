@@ -101,7 +101,7 @@ namespace RipesConnect
                             [ 
                                 new PackageAutoSetting() 
                                 { 
-                                    RelativePath = "xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc", 
+                                    RelativePath = "xpack-riscv-none-elf-gcc-14.3.0-1/bin/riscv-none-elf-gcc", 
                                     SettingKey = GccPathSetting 
                                 } 
                             ]
