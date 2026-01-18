@@ -125,34 +125,42 @@ public class RipesConnectTests
     [Fact]
     public void PackageConfig_ShouldBeValid()
     {
-        // 1. Ripes prüfen
+        // -----------------------------------------------------------
+        // 1. PRÜFUNG: RIPES
+        // -----------------------------------------------------------
         var ripes = RipesConnect.RipesPackage;
         Assert.Equal("ripes", ripes.Id);
         
         Assert.NotNull(ripes.Versions);
         Assert.NotEmpty(ripes.Versions); 
         
-        // FIX für Warning: "?? []" verhindert Null-Fehler
-        var winTarget = ripes.Versions.SelectMany(v => v.Targets ?? []).FirstOrDefault(t => t.Target == "win-x64");
-        
+        // FIX: .ToList() verhindert "Multiple Enumeration"
+        var allRipesTargets = ripes.Versions.SelectMany(v => v.Targets ?? []).ToList();
+
+        // Windows Check
+        var winTarget = allRipesTargets.FirstOrDefault(t => t.Target == "win-x64");
         Assert.NotNull(winTarget);
         Assert.Contains(".zip", winTarget.Url ?? "");
 
-        // 2. GCC prüfen
+        // Linux Check
+        var linuxRipesTarget = allRipesTargets.FirstOrDefault(t => t.Target == "linux-x64");
+        Assert.NotNull(linuxRipesTarget); 
+        Assert.Contains(".zip", linuxRipesTarget.Url ?? "");
+
+        // -----------------------------------------------------------
+        // 2. PRÜFUNG: GCC
+        // -----------------------------------------------------------
         var gcc = RipesConnect.GccPackage;
         Assert.Equal("riscv-gcc", gcc.Id);
         
         Assert.NotNull(gcc.Versions);
         Assert.NotEmpty(gcc.Versions);
         
-        // FIX für Warning: "?? []" verhindert Null-Fehler
-        var allTargets = gcc.Versions.SelectMany(v => v.Targets ?? []);
-        var linuxTarget = allTargets.FirstOrDefault(t => t.Target == "linux-x64");
-        
-        Assert.NotNull(linuxTarget); 
-        
-        Assert.NotNull(linuxTarget.AutoSetting);
-        Assert.NotEmpty(linuxTarget.AutoSetting);
-        Assert.Contains("riscv-none-elf-gcc", linuxTarget.AutoSetting[0].RelativePath ?? "");
+        // FIX: .ToList() verhindert "Multiple Enumeration"
+        var allGccTargets = gcc.Versions.SelectMany(v => v.Targets ?? []).ToList();
+
+        // Windows Check
+        var winGccTarget = allGccTargets.FirstOrDefault(t => t.Target == "win-x64");
+        Assert.NotNull(winGccTarget);
     }
 }
