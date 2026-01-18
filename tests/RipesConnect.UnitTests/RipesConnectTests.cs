@@ -3,11 +3,10 @@ using Moq;
 using OneWare.Essentials.Models;
 using OneWare.Essentials.Services;
 using Xunit;
-using System.Linq; // Wichtig für SelectMany
 
 namespace RipesConnect.UnitTests;
 
-// 1. Hilfs-Interface
+// Hilfs-Interface
 public interface IMockRoot : IProjectRoot
 {
     IDictionary<string, object> Properties { get; }
@@ -133,8 +132,9 @@ public class RipesConnectTests
         Assert.NotNull(ripes.Versions);
         Assert.NotEmpty(ripes.Versions); 
         
-        // Suche in allen Versionen nach Windows (nur als Beispiel)
-        var winTarget = ripes.Versions.SelectMany(v => v.Targets).FirstOrDefault(t => t.Target == "win-x64");
+        // FIX für Warning: "?? []" verhindert Null-Fehler
+        var winTarget = ripes.Versions.SelectMany(v => v.Targets ?? []).FirstOrDefault(t => t.Target == "win-x64");
+        
         Assert.NotNull(winTarget);
         Assert.Contains(".zip", winTarget.Url ?? "");
 
@@ -145,14 +145,10 @@ public class RipesConnectTests
         Assert.NotNull(gcc.Versions);
         Assert.NotEmpty(gcc.Versions);
         
-        // -----------------------------------------------------------------------
-        // FIX: Wir suchen jetzt in ALLEN Versionen nach Linux, 
-        // da Linux jetzt in Version 14 (Versions[1]) ist und nicht mehr in Versions[0].
-        // -----------------------------------------------------------------------
-        var allTargets = gcc.Versions.SelectMany(v => v.Targets);
+        // FIX für Warning: "?? []" verhindert Null-Fehler
+        var allTargets = gcc.Versions.SelectMany(v => v.Targets ?? []);
         var linuxTarget = allTargets.FirstOrDefault(t => t.Target == "linux-x64");
         
-        // Das hier schlug vorher fehl, weil er es in Version[0] nicht fand
         Assert.NotNull(linuxTarget); 
         
         Assert.NotNull(linuxTarget.AutoSetting);
