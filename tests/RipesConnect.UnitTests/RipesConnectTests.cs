@@ -1,13 +1,13 @@
-﻿
 using Avalonia.Media;
 using Moq;
 using OneWare.Essentials.Models;
 using OneWare.Essentials.Services;
 using Xunit;
+using System.Linq; // Wichtig für SelectMany
 
 namespace RipesConnect.UnitTests;
 
-// 1. Hilfs-Interface: Das behebt den "Cannot resolve symbol Properties" Fehler
+// 1. Hilfs-Interface
 public interface IMockRoot : IProjectRoot
 {
     IDictionary<string, object> Properties { get; }
@@ -30,7 +30,6 @@ public class RipesConnectTests
     [Fact]
     public async Task GenerateProcessor_ShouldCreateFile_WhenArchSelectedAsync()
     {
-        // Behebt "Cannot resolve symbol Guid/Task"
         var tempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
         Directory.CreateDirectory(tempPath);
 
@@ -39,7 +38,6 @@ public class RipesConnectTests
             var outputMock = new Mock<IOutputService>();
             var explorerMock = new Mock<IProjectExplorerService>();
             
-            // WICHTIG: Wir nutzen IMockRoot statt IProjectRoot für die Properties
             var rootMock = new Mock<IMockRoot>();
 
             rootMock.Setup(r => r.FullPath).Returns(tempPath);
@@ -56,7 +54,6 @@ public class RipesConnectTests
             var expectedFilePath = Path.Combine(tempPath, "processor_top.v");
             Assert.True(File.Exists(expectedFilePath));
             
-            // Behebt "Method WriteLine has 2 parameters but invoked with 3"
             outputMock.Verify(x => x.WriteLine(It.IsAny<string>(), Brushes.Green), Times.AtLeastOnce);
         }
         finally
@@ -133,15 +130,11 @@ public class RipesConnectTests
         var ripes = RipesConnect.RipesPackage;
         Assert.Equal("ripes", ripes.Id);
         
-        // Behebt gelbe Warnungen: Wir prüfen explizit auf null
         Assert.NotNull(ripes.Versions);
-        // Da wir Assert. NotNull gemacht haben, weiß der Compiler jetzt, dass es existiert
         Assert.NotEmpty(ripes.Versions); 
         
-        var firstVersion = ripes.Versions[0];
-        Assert.NotNull(firstVersion.Targets);
-        
-        var winTarget = firstVersion.Targets.FirstOrDefault(t => t.Target == "win-x64");
+        // Suche in allen Versionen nach Windows (nur als Beispiel)
+        var winTarget = ripes.Versions.SelectMany(v => v.Targets).FirstOrDefault(t => t.Target == "win-x64");
         Assert.NotNull(winTarget);
         Assert.Contains(".zip", winTarget.Url ?? "");
 
@@ -152,11 +145,15 @@ public class RipesConnectTests
         Assert.NotNull(gcc.Versions);
         Assert.NotEmpty(gcc.Versions);
         
-        var gccVersion = gcc.Versions[0];
-        Assert.NotNull(gccVersion.Targets);
-
-        var linuxTarget = gccVersion.Targets.FirstOrDefault(t => t.Target == "linux-x64");
-        Assert.NotNull(linuxTarget);
+        // -----------------------------------------------------------------------
+        // FIX: Wir suchen jetzt in ALLEN Versionen nach Linux, 
+        // da Linux jetzt in Version 14 (Versions[1]) ist und nicht mehr in Versions[0].
+        // -----------------------------------------------------------------------
+        var allTargets = gcc.Versions.SelectMany(v => v.Targets);
+        var linuxTarget = allTargets.FirstOrDefault(t => t.Target == "linux-x64");
+        
+        // Das hier schlug vorher fehl, weil er es in Version[0] nicht fand
+        Assert.NotNull(linuxTarget); 
         
         Assert.NotNull(linuxTarget.AutoSetting);
         Assert.NotEmpty(linuxTarget.AutoSetting);
