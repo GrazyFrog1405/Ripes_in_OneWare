@@ -44,6 +44,19 @@ namespace RipesConnect
                                     SettingKey = RipesPathSetting
                                 } ]
                         },
+                        // Linux
+                        new PackageTarget()
+                        {
+                            Target = "linux-x64",
+                            Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/2.2.6/Ripes-v.2.2.6-linux-x86_64.zip",
+                            AutoSetting = [ 
+                                new PackageAutoSetting()
+                                {
+                                    RelativePath = "Ripes-v2.2.6-linux-x86_64.AppImage", 
+                                    SettingKey = RipesPathSetting
+                                } ]
+                        },
+                        
                         // Mac Target
                         new PackageTarget()
                         {
@@ -108,28 +121,6 @@ namespace RipesConnect
                 }
             ]
         },
-        
-        new PackageVersion()
-        {
-            Version = "14.3.0.1",
-            Targets =
-            [
-                new PackageTarget()
-                {
-                    Target = "linux-x64",
-                    Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/14.0.3.1/xpack-riscv-none-elf-gcc-14.3.0-1-linux-x64.zip",
-                    
-                    AutoSetting = 
-                    [ 
-                        new PackageAutoSetting() 
-                        { 
-                            RelativePath = "xpack-riscv-none-elf-gcc-14.3.0-1-linux-x64/xpack-riscv-none-elf-gcc-14.3.0-1/bin/riscv-none-elf-gcc", 
-                            SettingKey = GccPathSetting 
-                        } 
-                    ]
-                }
-            ]
-        }
     ]
 };
 
