@@ -117,7 +117,7 @@ namespace RipesConnect
                 new PackageTarget()
                 {
                     Target = "linux-x64",
-                    Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/14.3.0.1/xpack-riscv-none-elf-gcc-14.3.0.1.zip",
+                    Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/14.0.3.1/xpack-riscv-none-elf-gcc-14.3.0-1-linux-x64.zip",
                     
                     AutoSetting = 
                     [ 
