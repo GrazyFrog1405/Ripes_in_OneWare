@@ -14,9 +14,11 @@
 
 ## Installation for Linux Users
 1. Install this Extension
-2. Download and Install [Ripes](https://github.com/mortbopet/Ripes/releases) for Linux manually
-3. Go to Extras -> Settings -> Compiler and set the correct installation path for Ripes
-4. Download and Install RISC-V GCC for Linux via Extras -> Extensions -> Compilers -> RISC-V GCC (xPack)
+2. Download and Install Ripes for Linux via Extras -> Extensions -> Binaries -> Ripes
+3. Run chmod a+x on the AppImage file
+4. installiert libfuse2 für Ripes mit dem Befehl sudo apt install libfuse2
+5. Download and Install [RISC-V GCC](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases) for Linux manually
+6. Go to Extras -> Settings -> Compiler and set the correct installation path for RISC-V GCC  .../xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc
 
 [![Test](https://github.com/GrazyFrog1405/Ripes_in_OneWare/actions/workflows/test.yml/badge.svg)](https://github.com/GrazyFrog1405/Ripes_in_OneWare/actions/workflows/test.yml)
 [![Publish](https://github.com/GrazyFrog1405/Ripes_in_OneWare/actions/workflows/publish.yml/badge.svg)](https://github.com/GrazyFrog1405/Ripes_in_OneWare/actions/workflows/publish.yml)
