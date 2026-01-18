@@ -14,7 +14,7 @@
 1. Install this Extension
 2. Download and Install Ripes for Linux via Extras -> Extensions -> Binaries -> Ripes
 3. Run chmod a+x on the AppImage file
-4. installiert libfuse2 für Ripes mit dem Befehl sudo apt install libfuse2
+4. Install libfuse2 for Ripes with the command sudo apt install libfuse2
 5. Download and Install [RISC-V GCC](https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases) for Linux manually
 6. Go to Extras -> Settings -> Compiler and set the correct installation path for RISC-V GCC  .../xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc
 
