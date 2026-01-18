@@ -28,10 +28,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 10.0.x 
+        dotnet-version: 9.0.x 
 
     # Create the NuGet packages in the folder from the environment variable NuGetDirectory
-    - run: dotnet pack ./OneWare.Templates.csproj --configuration Release --output ${{ env.NuGetDirectory }}
+    - run: dotnet pack ./RipesConnect.csproj --configuration Release --output ${{ env.NuGetDirectory }}
         
     # Publish all NuGet packages to NuGet.org
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
