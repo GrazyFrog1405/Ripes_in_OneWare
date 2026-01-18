@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Avalonia.Media;
 using OneWare.Essentials.Services;
@@ -15,7 +15,7 @@ namespace RipesConnect
 
             try
             {
-                // 1. Validierung: Wurde der GCC Pfad in den Settings gefunden?
+                // 1. Validierung
                 if (string.IsNullOrEmpty(gccPath) || !File.Exists(gccPath))
                 {
                     outputService?.WriteLine("[Build Error] GCC Compiler nicht gefunden! Bitte unter 'Packages' installieren oder Pfad in den Settings (Compiler) prüfen.", textColor: Brushes.Red);
@@ -27,11 +27,7 @@ namespace RipesConnect
                 var memFilePath = Path.Combine(asmDir, "code.mem");
 
                 // 2. Pfade ableiten
-                // Wir haben den Pfad zu GCC. ObjCopy liegt immer im selben Ordner.
                 var binDir = Path.GetDirectoryName(gccPath)!;
-                
-                // Trick: Wir nehmen den Namen von GCC (z.B. "riscv-none-elf-gcc.exe") 
-                // und ersetzen "gcc" durch "objcopy". Das erhält automatisch die .exe Endung auf Windows.
                 var gccFileName = Path.GetFileName(gccPath);
                 var objCopyFileName = gccFileName.Replace("gcc", "objcopy"); 
                 var objCopyPath = Path.Combine(binDir, objCopyFileName);
@@ -56,6 +52,23 @@ namespace RipesConnect
                     asmDir,
                     "GCC", outputService);
 
+                // ---------------------------------------------------------
+                // NEU: 4a. Alte Datei löschen (Fix für Linux Nummerierung)
+                // ---------------------------------------------------------
+                try
+                {
+                    if (File.Exists(memFilePath))
+                    {
+                        File.Delete(memFilePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    outputService?.WriteLine($"[Warnung] Konnte alte code.mem nicht löschen: {ex.Message}", textColor: Brushes.Orange);
+                    // Wir machen trotzdem weiter, vielleicht klappt das Überschreiben ja doch
+                }
+                // ---------------------------------------------------------
+
                 // 5. ObjCopy ausführen (ELF -> MEM/Hex)
                 RunProcess(
                     objCopyPath,
@@ -71,6 +84,7 @@ namespace RipesConnect
             }
         }
 
+        // ... Rest der Klasse (RunProcess, EnsureExecutable) bleibt gleich ...
         private static void RunProcess(string exe, string args, string workingDir, string toolName, IOutputService? outputService)
         {
             var psi = new ProcessStartInfo
@@ -97,7 +111,6 @@ namespace RipesConnect
             if (!string.IsNullOrWhiteSpace(stdOut))
                 outputService?.WriteLine($"[{toolName}] {stdOut.Trim()}", textColor: Brushes.Gray);
 
-            // GCC schreibt Warnungen oft in StdErr, aber das ist kein Absturz.
             if (!string.IsNullOrWhiteSpace(stdErr))
                 outputService?.WriteLine($"[{toolName} MSG] {stdErr.Trim()}", textColor: Brushes.Orange); 
 
