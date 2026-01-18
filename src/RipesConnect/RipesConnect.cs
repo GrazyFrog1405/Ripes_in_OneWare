@@ -62,71 +62,76 @@ namespace RipesConnect
         };
         
         public static readonly Package GccPackage = new()
+{
+    Category = "Compilers", 
+    Id = "riscv-gcc",
+    Type = "NativeTool",
+    Name = "RISC-V GCC (xPack)",
+    Description = "The xPack GNU RISC-V Embedded GCC toolchain",
+    License = "MIT",
+    //IconUrl = "",
+    Links = [ new PackageLink() { Name = "GitHub", Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack" } ],
+    Versions =
+    [
+        new PackageVersion()
         {
-            Category = "Compilers", 
-            Id = "riscv-gcc",
-            Type = "NativeTool",
-            Name = "RISC-V GCC (xPack)",
-            Description = "The xPack GNU RISC-V Embedded GCC toolchain",
-            License = "MIT",
-            //IconUrl = "",
-            Links = [ new PackageLink() { Name = "GitHub", Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack" } ],
-            Versions =
+            Version = "15.2.0.1", 
+            Targets =
             [
-                new PackageVersion()
+                // Windows
+                new PackageTarget()
                 {
-                    Version = "15.2.0.1", // Aktuelle, stabile Version
-                    Targets =
-                    [
-                        // Windows
-                        new PackageTarget()
-                        {
-                            Target = "win-x64",
-                            Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v15.2.0-1/xpack-riscv-none-elf-gcc-15.2.0-1-win32-x64.zip",
-                            AutoSetting = 
-                            [ 
-                                new PackageAutoSetting() 
-                                { 
-                                    RelativePath = "xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc.exe", 
-                                    SettingKey = GccPathSetting 
-                                } 
-                            ]
-                        },
-                        // Linux
-                        new PackageTarget()
-                        {
-                            Target = "linux-x64",
-                            Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/14.3.0.1/riscv-gcc-14.2.0-linux.zip",
-                            AutoSetting = 
-                            [ 
-                                new PackageAutoSetting() 
-                                { 
-                                    RelativePath = "xpack-riscv-none-elf-gcc-14.3.0-1/bin/riscv-none-elf-gcc", 
-                                    SettingKey = GccPathSetting 
-                                } 
-                            ]
-                        },
-                        // macOS (Intel & Rosetta)
-                        new PackageTarget()
-                        {
-                            Target = "osx-x64",
-                            Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v15.2.0-1/xpack-riscv-none-elf-gcc-15.2.0-1-darwin-x64.tar.gz",
-                            AutoSetting = 
-                            [ 
-                                new PackageAutoSetting() 
-                                { 
-                                    RelativePath = "xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc", 
-                                    SettingKey = GccPathSetting 
-                                } 
-                            ]
-                        }
+                    Target = "win-x64",
+                    Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v15.2.0-1/xpack-riscv-none-elf-gcc-15.2.0-1-win32-x64.zip",
+                    AutoSetting = 
+                    [ 
+                        new PackageAutoSetting() 
+                        { 
+                            RelativePath = "xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc.exe", 
+                            SettingKey = GccPathSetting 
+                        } 
+                    ]
+                },
+                // macOS
+                new PackageTarget()
+                {
+                    Target = "osx-x64",
+                    Url = "https://github.com/xpack-dev-tools/riscv-none-elf-gcc-xpack/releases/download/v15.2.0-1/xpack-riscv-none-elf-gcc-15.2.0-1-darwin-x64.tar.gz",
+                    AutoSetting = 
+                    [ 
+                        new PackageAutoSetting() 
+                        { 
+                            RelativePath = "xpack-riscv-none-elf-gcc-15.2.0-1/bin/riscv-none-elf-gcc", 
+                            SettingKey = GccPathSetting 
+                        } 
                     ]
                 }
             ]
-        };
+        },
         
-        
-        
+        new PackageVersion()
+        {
+            Version = "14.3.0.1",
+            Targets =
+            [
+                new PackageTarget()
+                {
+                    Target = "linux-x64",
+                    Url = "https://github.com/GrazyFrog1405/Ripes_in_OneWare/releases/download/14.3.0.1/xpack-riscv-none-elf-gcc-14.3.0.1.zip",
+                    
+                    AutoSetting = 
+                    [ 
+                        new PackageAutoSetting() 
+                        { 
+                            RelativePath = "xpack-riscv-none-elf-gcc-14.3.0-1/bin/riscv-none-elf-gcc", 
+                            SettingKey = GccPathSetting 
+                        } 
+                    ]
+                }
+            ]
+        }
+    ]
+};
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
