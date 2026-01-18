@@ -31,7 +31,7 @@ jobs:
         dotnet-version: 9.0.x 
 
     # Create the NuGet packages in the folder from the environment variable NuGetDirectory
-    - run: dotnet pack ./RipesConnect.csproj --configuration Release --output ${{ env.NuGetDirectory }}
+    - run: dotnet pack ./src/RipesConnect/RipesConnect.csproj --configuration Release --output ${{ env.NuGetDirectory }}
         
     # Publish all NuGet packages to NuGet.org
     # Use --skip-duplicate to prevent errors if a package with the same version already exists.
