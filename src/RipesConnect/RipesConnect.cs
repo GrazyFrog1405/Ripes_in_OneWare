@@ -76,7 +76,7 @@ namespace RipesConnect
         
         public static readonly Package GccPackage = new()
 {
-    Category = "Tools", 
+    Category = "Compiler", 
     Id = "riscv-gcc",
     Type = "NativeTool",
     Name = "RISC-V GCC (xPack)",
@@ -159,7 +159,7 @@ namespace RipesConnect
     );
     
     globalSettingsService.RegisterSetting(
-        "Compiler",       
+        "Tools",       
         "RISC-V GCC",    
         GccPathSetting,    
         new FilePathSetting(
