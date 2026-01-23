@@ -73,7 +73,7 @@ public class RipesConnectTests
         BuildHexCode.BuildHex(null, "dummy.s", outputMock.Object);
 
         outputMock.Verify(
-            x => x.WriteLine(It.Is<string>(s => s.Contains("GCC Compiler nicht gefunden")), Brushes.Red), 
+            x => x.WriteLine(It.Is<string>(s => s.Contains("GCC compiler not found")), Brushes.Red), 
             Times.Once);
     }
 
@@ -93,7 +93,7 @@ public class RipesConnectTests
             BuildHexCode.BuildHex(fakeGccPath, "code.s", outputMock.Object);
 
             outputMock.Verify(
-                x => x.WriteLine(It.Is<string>(s => s.Contains("'objcopy' nicht gefunden")), Brushes.Red), 
+                x => x.WriteLine(It.Is<string>(s => s.Contains("'objcopy' not found")), Brushes.Red), 
                 Times.Once);
         }
         finally
