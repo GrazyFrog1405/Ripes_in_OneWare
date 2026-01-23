@@ -76,7 +76,7 @@ namespace RipesConnect
         
         public static readonly Package GccPackage = new()
 {
-    Category = "Compilers", 
+    Category = "Tools", 
     Id = "riscv-gcc",
     Type = "NativeTool",
     Name = "RISC-V GCC (xPack)",
