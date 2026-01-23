@@ -1,4 +1,4 @@
-﻿using OneWare.Essentials.Services;
+using OneWare.Essentials.Services;
 
 namespace RipesConnect;
 
@@ -20,11 +20,11 @@ public class Ripes
             if (string.IsNullOrEmpty(ripesPath) || !File.Exists(ripesPath))
             {
                 outputService?.WriteLine(
-                    "[Ripes Error] Der Pfad zu Ripes wurde nicht gefunden. " +
-                    "Bitte installiere Ripes über die Einstellungen (Extras -> Extensions -> Binaries)",
+                    "[Ripes Error] The path to Ripes could not be found. " +
+                    "Please install Ripes via the settings (Extras -> Extensions -> Binaries)",
                     textColor: Brushes.Red);
                 outputService?.WriteLine(
-                    "Oder bei Linux README Datei anschauen zur installation", 
+                    "Or, for Linux, refer to the README file for installation instructions.", 
                     textColor: Brushes.Red);
                 return;
             }
@@ -90,7 +90,7 @@ public class Ripes
                 }
             }
 
-            outputService?.WriteLine($"Ripes wird gestartet von: {ripesPath}", textColor: Brushes.Green);
+            outputService?.WriteLine($"Ripes is launched by: {ripesPath}", textColor: Brushes.Green);
             
             Process.Start(psi);
         }
