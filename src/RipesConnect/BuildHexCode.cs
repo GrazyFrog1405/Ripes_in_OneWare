@@ -11,14 +11,14 @@ namespace RipesConnect
 
         public static void BuildHex(string? gccPath, string asmFilePath, IOutputService? outputService)
         {
-            outputService?.WriteLine($"Starte Build für: {asmFilePath}...");
+            outputService?.WriteLine($"Start build for: {asmFilePath}...");
 
             try
             {
                 // 1. Validierung
                 if (string.IsNullOrEmpty(gccPath) || !File.Exists(gccPath))
                 {
-                    outputService?.WriteLine("[Build Error] GCC Compiler nicht gefunden! Bitte unter 'Packages' installieren oder Pfad in den Settings (Compiler) prüfen.", textColor: Brushes.Red);
+                    outputService?.WriteLine("[Build error] GCC compiler not found! Please install it under 'Packages' or check the path in the settings (Compiler).", textColor: Brushes.Red);
                     return;
                 }
 
@@ -34,7 +34,7 @@ namespace RipesConnect
 
                 if (!File.Exists(objCopyPath))
                 {
-                    outputService?.WriteLine($"[Build Error] 'objcopy' nicht gefunden unter: {objCopyPath}", textColor: Brushes.Red);
+                    outputService?.WriteLine($"[Build Error] 'objcopy' not found at: {objCopyPath}", textColor: Brushes.Red);
                     return;
                 }
 
@@ -64,7 +64,7 @@ namespace RipesConnect
                 }
                 catch (Exception ex)
                 {
-                    outputService?.WriteLine($"[Warnung] Konnte alte code.mem nicht löschen: {ex.Message}", textColor: Brushes.Orange);
+                    outputService?.WriteLine($"[Warning] Could not delete old code.mem: {ex.Message}", textColor: Brushes.Orange);
                     // Wir machen trotzdem weiter, vielleicht klappt das Überschreiben ja doch
                 }
                 // ---------------------------------------------------------
@@ -76,7 +76,7 @@ namespace RipesConnect
                     asmDir,
                     "OBJCOPY", outputService);
 
-                outputService?.WriteLine("Build erfolgreich abgeschlossen! 'code.mem' wurde erstellt.", textColor: Brushes.Green);
+                outputService?.WriteLine("Build completed successfully! 'code.mem' was created.", textColor: Brushes.Green);
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace RipesConnect
             using var process = Process.Start(psi);
 
             if (process == null)
-                throw new Exception($"{toolName} konnte nicht gestartet werden.");
+                throw new Exception($"{toolName} It could not be started.");
 
             string stdOut = process.StandardOutput.ReadToEnd();
             string stdErr = process.StandardError.ReadToEnd();
@@ -115,7 +115,7 @@ namespace RipesConnect
                 outputService?.WriteLine($"[{toolName} MSG] {stdErr.Trim()}", textColor: Brushes.Orange); 
 
             if (process.ExitCode != 0)
-                throw new Exception($"{toolName} fehlgeschlagen mit Exit Code {process.ExitCode}.");
+                throw new Exception($"{toolName} Failed with exit code {process.ExitCode}.");
         }
 
         private static void EnsureExecutable(string filePath)
