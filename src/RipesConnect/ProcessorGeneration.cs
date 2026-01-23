@@ -1,4 +1,4 @@
-﻿using Avalonia.Media;
+using Avalonia.Media;
 using OneWare.Essentials.Models;
 using OneWare.Essentials.Services;
 namespace RipesConnect;
@@ -38,12 +38,12 @@ public class ProcessorGeneration
                     await projectExplorer.ReloadAsync(root);
 
                     outputService?.WriteLine("[Processor] None selected – processor removed.", textColor: Brushes.Red);
-                    outputService?.WriteLine("[Processor] Verilog Datei 'processor_top.v wurde gelöscht.", textColor: Brushes.Red);
+                    outputService?.WriteLine("[Processor] Verilog file 'processor_top.v' was deleted.", textColor: Brushes.Red);
                     return;
                 }
                 
-                outputService?.WriteLine($"[Processor] Architektur ausgewählt: {selectedArch}", textColor: Brushes.Green);
-                outputService?.WriteLine("[Processor] Verilog Datei 'processor_top.v' wurde erstellt.", textColor: Brushes.Green);
+                outputService?.WriteLine($"[Processor] Architecture selected: {selectedArch}", textColor: Brushes.Green);
+                outputService?.WriteLine("[Processor] Verilog file 'processor_top.v' has been created.", textColor: Brushes.Green);
                 
                 string content = selectedArch.Contains("5-stage", StringComparison.OrdinalIgnoreCase)
                     ? ProcessorTemplates.FiveStageCode
